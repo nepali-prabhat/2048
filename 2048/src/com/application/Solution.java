@@ -5,8 +5,9 @@ import java.util.Scanner;
 
 class Solution {
 	public static int a = 4;
-
+	public static int score;
 	public static void main(String args[]) {
+		Log obj = new Log();
 		Scanner scan = new Scanner(System.in);
 		int x[][] = new int[a][a];
 		String statuS;
@@ -17,23 +18,28 @@ class Solution {
 			System.out.println("Enter Your Move or Press \'e\' to exit.\n");
 			statuS=scan.next().toLowerCase();
 			if(statuS.equals("e")) {
-				System.out.println("Bye Bye see you soon... You will be missed!!!");
 				break;
 			}
 				if(statuS.equals("s")) {
 					x=move.downM(x);
 					move.prinT(x, "Moved Down");
+					System.out.println("SCORE:"+score);
 				}else if(statuS.equals("w")) {
 					x=move.upM(x);
+					System.out.println("SCORE:"+score);
 				}else if(statuS.equals("d")) {
 					x=move.rightM(x);
+					System.out.println("SCORE:"+score);
 				}else if(statuS.equals("a")) {
 					x=move.leftM(x);
+					System.out.println("SCORE:"+score);
 				}else {
 					System.out.println("Invalid Input");
 				}
 
 		}while(true);
+		System.out.println("SCORE:"+score);
+		System.out.println("HIGHEST NO REACHED\t"+obj.get_highest_no(x));
 		scan.close();
 	}
 }
@@ -66,6 +72,7 @@ class random {
 
 class move {
 	public static void prinT(int x[][], String message) {
+		Log obj = new Log();
 		System.out.println(message);
 		for (int i = 0; i < x.length; i++) {
 			for (int j = 0; j < x.length; j++) {
@@ -164,11 +171,12 @@ class check {
 }
 
 class add {
-	public static int[] adder(int comp[], int a, int seg1[], int seg2[]) { // add the similar value.
+	
+	public static int[] adder(int comp[], int a, int seg1[], int seg2[]) { // add the similar value.		
 		for (int i = 0; i < comp.length; i++) {
 			if (comp[i] == 1) {
 				seg1[i + 1] += seg2[i + 1];
-				
+				Solution.score += seg1[i+1];
 			}
 		}
 		return seg1;
